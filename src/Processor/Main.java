@@ -66,7 +66,7 @@ public class Main {
             FilterOptions options = new FilterOptions(false);
             options.addReplacement("[*\"]", "");
             options.addReplacement(",,,", ",");
-            FileParser<Payment> parser = new FileParser<Payment>("Checking1.csv");
+            FileParser<Payment> parser = new FileParser<Payment>("./input/Checking1.csv");
             String raw = parser.processFullText(options, false);
             Arrays.asList(raw.split("\n")).forEach(l -> {
                 String[] info = l.split(",");
@@ -78,7 +78,7 @@ public class Main {
                 }
             });
 
-            parser.writeFile("./cleaned_payments.txt", sortJoin(deposits) + "\n\n" + sortJoin(withdrawals));
+            parser.writeFile("./output/Checking1_cleaned.txt", sortJoin(deposits) + "\n\n" + sortJoin(withdrawals));
 
             filterSortPrint(deposits, p -> p.description.contains("BROWN"), Payment.byAmount);
 
