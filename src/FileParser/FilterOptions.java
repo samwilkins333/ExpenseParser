@@ -8,8 +8,8 @@ import java.util.HashMap;
  * characters while calling FileParser.processFullText().
  */
 public class FilterOptions {
-  private HashMap<String, String> replacements = new HashMap<>();
-  private boolean toLowerCase;
+  private final HashMap<String, String> replacements = new HashMap<>();
+  private final boolean toLowerCase;
 
   /**
    * Constructor.
@@ -24,15 +24,12 @@ public class FilterOptions {
    * Maps a regex to a replacement.
    * @param match the regex used to match patterns
    * @param replace the text to replace such found instances
-   * @return true if no mapping previously existed for the
-   * specified match, false if attempted overwrite
    */
-  public boolean addReplacement(String match, String replace) {
+  public void addReplacement(String match, String replace) {
     if (replacements.containsKey(match)) {
-      return false;
+      return;
     }
     replacements.put(match, replace);
-    return true;
   }
 
   /**

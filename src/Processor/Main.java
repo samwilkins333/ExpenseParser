@@ -9,21 +9,21 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main {
+class Main {
 
     private interface Filter {
         boolean filter(Payment p);
     }
 
     private static class Payment {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
         private Date date;
-        private double amount;
-        private String description;
+        private final double amount;
+        private final String description;
 
-        static Comparator<Payment> byAmount = Comparator.comparingDouble(p -> p.amount);
-        static Comparator<Payment> byDate = Comparator.comparing(p -> p.date);
+        static final Comparator<Payment> byAmount = Comparator.comparingDouble(p -> p.amount);
+        static final Comparator<Payment> byDate = Comparator.comparing(p -> p.date);
 
         Payment(String date, String amount, String description) {
             try {
@@ -59,6 +59,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        String fileName = args[0];
         List<Payment> deposits = new ArrayList<>();
         List<Payment> withdrawals = new ArrayList<>();
 
@@ -66,7 +67,7 @@ public class Main {
             FilterOptions options = new FilterOptions(false);
             options.addReplacement("[*\"]", "");
             options.addReplacement(",,,", ",");
-            FileParser<Payment> parser = new FileParser<Payment>("./input/Checking1.csv");
+            FileParser<Payment> parser = new FileParser<Payment>("./input/" + fileName);
             String raw = parser.processFullText(options, false);
             Arrays.asList(raw.split("\n")).forEach(l -> {
                 String[] info = l.split(",");
@@ -78,7 +79,7 @@ public class Main {
                 }
             });
 
-            parser.writeFile("./output/Checking1_cleaned.txt", sortJoin(deposits) + "\n\n" + sortJoin(withdrawals));
+            parser.writeFile("./output/" + fileName + "_cleaned.txt", sortJoin(deposits) + "\n\n" + sortJoin(withdrawals));
 
             filterSortPrint(deposits, p -> p.description.contains("BROWN"), Payment.byAmount);
 

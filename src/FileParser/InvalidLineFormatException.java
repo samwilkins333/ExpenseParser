@@ -5,11 +5,11 @@ package FileParser;
  * in FileParser.convertLines() enforces a lines matching a
  * specified regex pattern and observes a deviation from this pattern.
  */
-public class InvalidLineFormatException extends Exception {
-  private String filePath;
-  private String pattern;
-  private String observed;
-  private int lineNo;
+class InvalidLineFormatException extends Exception {
+  private final String filePath;
+  private final String pattern;
+  private final String observed;
+  private final int lineNo;
 
   /**
    * Constructor.

@@ -5,10 +5,10 @@ package FileParser;
  * observed file header fails to match the specified
  * regex pattern.
  */
-public class InvalidHeaderException extends Exception {
-  private String filePath;
-  private String pattern;
-  private String observed;
+class InvalidHeaderException extends Exception {
+  private final String filePath;
+  private final String pattern;
+  private final String observed;
 
   /**
    * Constructor.
